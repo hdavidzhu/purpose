@@ -5,12 +5,12 @@
   "version": "1.0",
   "background": {
     "scripts": [
-      "catcher.js",
-      "visitIntent.js",
-      "visitIntentBank.js",
-      "tabProcessor.js",
-      "catchWorker.js",
-      "background.js"
+      "models/catcher.js",
+      "models/visit_intent.js",
+      "models/visit_intent_bank.js",
+      "models/tab_processor.js",
+      "models/catch_worker.js",
+      "background/index.js"
     ]
   },
   "permissions": [

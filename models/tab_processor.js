@@ -26,6 +26,6 @@ class TabProcessor {
   block(tab, catcher) {
     const intent = new VisitIntent(tab.url, tab.id, catcher);
     this.visitIntentBank.deposit(intent);
-    chrome.tabs.update(tab.id, { url: 'index.html' });
+    chrome.tabs.update(tab.id, { url: 'blocker_landing/index.html' });
   }
 }
