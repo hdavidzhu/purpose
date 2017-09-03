@@ -4,7 +4,10 @@
   "description": "Better, simpler website blocker to help you use the web with purpose",
   "version": "1.0",
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "catcher.js",
+      "background.js"
+    ]
   },
   "permissions": [
     "tabs"

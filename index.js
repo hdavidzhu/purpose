@@ -1,16 +1,27 @@
+// DATA ========================================================================
+
+var message = {};
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  message = request;
+});
+
+// BUTTONS =====================================================================
+
 var continueButton = document.getElementById('btn-continue');
 continueButton.onclick = function onContinueButtonClick() {
-  // TODO: Redirect to actual page.
-  alert('Continuing');
+  chrome.runtime.sendMessage({
+    type: 'continue-to-url',
+    catcher: message.catchers[0]
+  }, function onResponse(success) {
+    if (success == true) {
+      window.location.replace(message.url);
+    }
+  });
 }
-
 
 var closeButton = document.getElementById('btn-close');
 closeButton.onclick = function onCloseButtonClick() {
   // TODO: Save the text here.
   window.close();
 }
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  alert(request.catchers);
-});
