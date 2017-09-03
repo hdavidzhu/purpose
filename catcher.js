@@ -1,7 +1,11 @@
 class Catcher {
   constructor(regExpString) {
     this.setRegExp(regExpString);
-    this.enabled = true;
+    this.enabledAfter = 0;
+  }
+
+  test(url) {
+    return this.regExp.test(url);
   }
 
   setRegExp(regExpString) {
@@ -10,10 +14,13 @@ class Catcher {
   }
 
   isEnabled() {
-    return this.enabled;
+    return Date.now() > this.enabledAfter;
   }
 
-  setEnabled() {
-    this.enabled = false;
+  /**
+  * @param {millisecond} time Timestamp of when to re-enable feature
+  **/
+  setEnabledAfter(time) {
+    this.enabledAfter = time;
   }
 }

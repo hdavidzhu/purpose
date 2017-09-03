@@ -6,6 +6,10 @@
   "background": {
     "scripts": [
       "catcher.js",
+      "visitIntent.js",
+      "visitIntentBank.js",
+      "tabProcessor.js",
+      "catchWorker.js",
       "background.js"
     ]
   },
