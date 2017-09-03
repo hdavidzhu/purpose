@@ -1,6 +1,8 @@
-class CatchWorker {
+"use strict";
 
-  REFRESH_RATE = 60 * 1000 // 1 minute
+const REFRESH_RATE = 60 * 1000; // 1 minute
+
+class CatchWorker {
 
   constructor(tabProcessor) {
     this.pendingCatchersQueue = [];

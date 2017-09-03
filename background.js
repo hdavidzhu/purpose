@@ -1,3 +1,5 @@
+"use strict";
+
 const visitIntentBank = new VisitIntentBank();
 
 const tabProcessor = new TabProcessor(visitIntentBank);
@@ -38,8 +40,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     case 'continue-to-url':
       var intent = visitIntentBank.withdraw(tabId);
-      // TODO: Don't hardcode this
-      catchWorker.addPendingCatcher(intent.getCatcher(), 20 * 1000);
+      catchWorker.addPendingCatcher(intent.getCatcher(), request.checkoutDuration || 5 * 60 * 1000);
       chrome.tabs.update(tabId, { url: intent.intendedUrl });
       break;
   }

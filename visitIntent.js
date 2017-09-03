@@ -1,3 +1,5 @@
+"use strict";
+
 class VisitIntent {
   constructor(intendedUrl, tabId, catcher) {
     this.intendedUrl = intendedUrl;
