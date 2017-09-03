@@ -12,5 +12,5 @@ closeButton.onclick = function onCloseButtonClick() {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  alert(request.regex);
+  alert(request.catchers);
 });
