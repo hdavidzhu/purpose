@@ -4,6 +4,7 @@ var continueButton = document.getElementById('btn-continue');
 continueButton.onclick = function onContinueButtonClick() {
   chrome.runtime.sendMessage({
     type: 'continue-to-url',
+    reason: getReason(),
     checkoutDuration: getCheckoutDuration()
   });
 }
@@ -11,6 +12,10 @@ continueButton.onclick = function onContinueButtonClick() {
 var closeButton = document.getElementById('btn-close');
 closeButton.onclick = function onCloseButtonClick() {
   window.close();
+}
+
+function getReason() {
+  return document.getElementById("txtarea-reason").value;
 }
 
 /**
