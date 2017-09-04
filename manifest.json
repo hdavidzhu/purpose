@@ -2,7 +2,11 @@
   "manifest_version": 2,
   "name": "Purpose",
   "description": "Better, simpler website blocker to help you use the web with purpose",
-  "version": "1.0",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "assets/purpose.png"
+  },
   "background": {
     "scripts": [
       "models/catcher.js",
@@ -13,13 +17,11 @@
       "background/index.js"
     ]
   },
-  "permissions": [
-    "tabs"
-  ],
-  "browser_action": {
-    "default_icon": "assets/purpose.png"
-  },
   "icons": {
     "700": "assets/purpose.png"
-  }
+  },
+  "options_page": "options/index.html",
+  "permissions": [
+    "tabs"
+  ]
 }
