@@ -27,6 +27,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   }
 });
 
+chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+  visitIntentBank.withdraw(tabId);
+});
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
   const tabId = sender.tab.id;
