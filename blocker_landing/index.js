@@ -23,5 +23,8 @@ function getReason() {
 **/
 function getCheckoutDuration() {
   const input = document.getElementById("input-checkout-duration").value;
+  if (input.length == 0) {
+    input = 1;
+  }
   return input * 60 * 1000;
 }

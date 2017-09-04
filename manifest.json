@@ -10,10 +10,12 @@
   "background": {
     "scripts": [
       "models/catcher.js",
+      "models/catchers_provider.js",
       "models/visit_intent.js",
       "models/visit_intent_bank.js",
       "models/tab_processor.js",
       "models/catch_worker.js",
+      "models/purpose_app.js",
       "background/index.js"
     ]
   },
