@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var continueButton = document.getElementById('btn-continue');
 continueButton.onclick = function onContinueButtonClick() {

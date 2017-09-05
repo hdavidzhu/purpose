@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
 const purposeApp = new PurposeApp();

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 class VisitIntent {
   constructor(intendedUrl, tabId, catcher) {

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const REFRESH_RATE = 60 * 1000; // 1 minute
 
