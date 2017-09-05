@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Purpose",
   "description": "Better, simpler website blocker to help you use the web with purpose",
-  "version": "0.1",
+  "version": "0.2",
 
   "browser_action": {
     "default_icon": "assets/purpose.png"
