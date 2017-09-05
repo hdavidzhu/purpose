@@ -10,6 +10,10 @@ class Catcher {
     return this.regExp.test(url);
   }
 
+  getRegExpString() {
+    return this.regExpString;
+  }
+
   setRegExp(regExpString) {
     this.regExpString = regExpString;
     this.regExp = new RegExp(this.regExpString);

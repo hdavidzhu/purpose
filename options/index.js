@@ -1,14 +1,23 @@
 "use_strict";
 
-chrome.runtime.sendMessage({ type: EVENTS.GET_CATCHER_STRINGS }, function(response) {
-  console.log(response);
+const catchersTextArea = document.getElementById('txtarea-catchers');
+const saveButton = document.getElementById('btn-save');
+
+chrome.runtime.sendMessage({ type: EVENTS.GET_CATCHER_STRINGS }, function(catcherStrings) {
+  catchersTextArea.value = catcherStrings.join('\n');
 });
 
-var saveButton = document.getElementById('btn-save');
 saveButton.onclick = function onSaveButtonClick(event) {
   event.preventDefault();
-  const catchersTextArea = document.getElementById('txtarea-catchers');
-  const catcherStrings = catchersTextArea.value.split('\n');
+
+  // TODO: Provide better sanitation of data
+  const catcherStrings = catchersTextArea.value.split('\n')
+    .filter(function(catcherString) {
+      const isEmptyString = catcherString == '';
+      const isUndefined = catcherString == undefined;
+      return !(isEmptyString || isUndefined);
+    });
+
   chrome.runtime.sendMessage({
     type: EVENTS.SAVE_CATCHER_STRINGS,
     catcherStrings: catcherStrings

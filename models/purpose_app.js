@@ -35,6 +35,9 @@ class PurposeApp {
         case EVENTS.SAVE_CATCHER_STRINGS:
           _this.onSaveCatcherStrings(request.catcherStrings, sendResponse);
           break;
+        case EVENTS.GET_CATCHER_STRINGS:
+          _this.onGetCatcherStrings(sendResponse);
+          break;
         case EVENTS.GET_VISIT_INTENT:
           _this.onGetVisitIntent(tabId);
           break;
@@ -56,6 +59,10 @@ class PurposeApp {
   onSaveCatcherStrings(catcherStrings, sendResponse) {
     this.catchersProvider.saveCatcherStrings(catcherStrings);
     sendResponse(true);
+  }
+
+  onGetCatcherStrings(sendResponse) {
+    sendResponse(this.catchersProvider.getCatcherStrings());
   }
 
   onGetVisitIntent(tabId) {

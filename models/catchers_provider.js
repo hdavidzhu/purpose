@@ -15,4 +15,10 @@ class CatchersProvider {
   getCatchers() {
     return this.catchers;
   }
+
+  getCatcherStrings() {
+    return this.catchers.map(function(catcher) {
+      return catcher.regExpString;
+    });
+  }
 }
