@@ -1,9 +1,9 @@
 "use strict";
 
 class Catcher {
-  constructor(regExpString) {
+  constructor(regExpString, enabledAfter) {
     this.setRegExp(regExpString);
-    this.enabledAfter = 0;
+    this.enabledAfter = enabledAfter || 0;
   }
 
   test(url) {

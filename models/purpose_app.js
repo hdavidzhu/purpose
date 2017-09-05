@@ -49,7 +49,10 @@ class PurposeApp {
   }
 
   onTabLoading(tab) {
-    this.tabProcessor.test(tab, this.catchersProvider.getCatchers());
+    const _this = this;
+    this.catchersProvider.getCatchers(function(catchers) {
+      _this.tabProcessor.test(tab, catchers);
+    });
   }
 
   onTabRemoved(tabId) {
@@ -57,12 +60,15 @@ class PurposeApp {
   }
 
   onSaveCatcherStrings(catcherStrings, sendResponse) {
-    this.catchersProvider.saveCatcherStrings(catcherStrings);
-    sendResponse(true);
+    this.catchersProvider.saveCatcherStrings(catcherStrings, function() {
+      sendResponse(true);
+    });
   }
 
   onGetCatcherStrings(sendResponse) {
-    sendResponse(this.catchersProvider.getCatcherStrings());
+    this.catchersProvider.getCatcherStrings(function(catcherStrings) {
+      sendResponse(catcherStrings);
+    });
   }
 
   onGetVisitIntent(tabId) {
