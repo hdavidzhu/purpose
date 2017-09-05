@@ -1,3 +1,5 @@
+"use_strict";
+
 class PurposeApp {
 
   constructor() {
@@ -17,7 +19,7 @@ class PurposeApp {
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       switch (changeInfo.status) {
-        case 'loading':
+        case EVENTS.LOADING:
           _this.onTabLoading(tab);
           break;
       }
@@ -30,13 +32,13 @@ class PurposeApp {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const tabId = sender.tab.id;
       switch (request.type) {
-        case 'save-catcher-strings':
-          _this.onSaveCatcherStrings(request, sendResponse);
+        case EVENTS.SAVE_CATCHER_STRINGS:
+          _this.onSaveCatcherStrings(request.catcherStrings, sendResponse);
           break;
-        case 'get-visit-intent':
+        case EVENTS.GET_VISIT_INTENT:
           _this.onGetVisitIntent(tabId);
           break;
-        case 'continue-to-url':
+        case EVENTS.CONTINUE_TO_URL:
           _this.onContinueToUrl(request, tabId);
           break;
       }
@@ -51,8 +53,8 @@ class PurposeApp {
     this.visitIntentBank.withdraw(tabId);
   }
 
-  onSaveCatcherStrings(request, sendResponse) {
-    this.catchersProvider.saveCatcherStrings(request.catcherStrings);
+  onSaveCatcherStrings(catcherStrings, sendResponse) {
+    this.catchersProvider.saveCatcherStrings(catcherStrings);
     sendResponse(true);
   }
 
@@ -63,7 +65,7 @@ class PurposeApp {
 
   onContinueToUrl(request, tabId) {
     var intent = this.visitIntentBank.withdraw(tabId);
-    catchWorker.addPendingCatcher(intent.getCatcher(), request.checkoutDuration);
+    this.catchWorker.addPendingCatcher(intent.getCatcher(), request.checkoutDuration);
     chrome.tabs.update(tabId, { url: intent.intendedUrl });
   }
 }

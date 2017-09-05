@@ -3,7 +3,7 @@
 var continueButton = document.getElementById('btn-continue');
 continueButton.onclick = function onContinueButtonClick() {
   chrome.runtime.sendMessage({
-    type: 'continue-to-url',
+    type: EVENTS.CONTINUE_TO_URL,
     reason: getReason(),
     checkoutDuration: getCheckoutDuration()
   });

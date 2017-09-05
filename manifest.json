@@ -9,6 +9,7 @@
   },
   "background": {
     "scripts": [
+      "models/events.js",
       "models/catcher.js",
       "models/catchers_provider.js",
       "models/visit_intent.js",
