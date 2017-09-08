@@ -1,5 +1,3 @@
-"use_strict";
-
 const catchersTextArea = document.getElementById('txtarea-catchers');
 const saveButton = document.getElementById('btn-save');
 

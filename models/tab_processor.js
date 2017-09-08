@@ -1,5 +1,3 @@
-'use strict';
-
 class TabProcessor {
   constructor(visitIntentBank) {
     this.visitIntentBank = visitIntentBank;

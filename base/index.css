@@ -1,0 +1,77 @@
+* {
+  color: #212121;
+  font-family: 'Lato', sans-serif;
+  font-size: 14pt;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+input, textarea {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px dashed gray;
+  padding: 15px;
+}
+
+button {
+  border: 0;
+  display: inline-block;
+  padding: 15px;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.btn-default {}
+
+.btn-primary {
+  background: #81D4FA;
+}
+
+.btn-success {}
+
+.btn-info {}
+
+.btn-warning {
+  background: #FFCC80;
+}
+
+.btn-danger {}
+
+.btn-link {}
+
+.body-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.body-content {
+  width: 450px;
+}
+
+.fill-width {
+  width: 100%;
+}
+
+.red-text {
+  color: #EF5350;
+}

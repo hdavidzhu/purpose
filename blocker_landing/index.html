@@ -2,33 +2,44 @@
   <head>
     <title>Block - Purpose</title>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../base/index.css">
     <link rel="stylesheet" type="text/css" href="index.css">
   </head>
-  <body>
-    <div id="content">
-      <div id="txt-question" class="txt-block">
+  <body class="body-center">
+    <div class="body-content">
+      <h1>
         What are you up to?
-      </div>
-      <div id="btn-close" class="btn">
+      </h1>
+      <p>(blocker) -> <span id="span-blocker" class="red-text"></span></p>
+      <p>(url) -> </b><span id="span-url" class="red-text"></span></p>
+      <br>
+      <button id="btn-close" class="btn-primary">
         I'm just wasting time! Get me out of here.
-      </div>
+      </button>
       <br>
-      <div id="txt-or" class="txt-block">
+      <h2>
         Or...
-      </div>
-      <textarea
-        id="txtarea-reason"
-        cols="40"
-        rows="5"
-        placeholder="Here's my reason..."
-        required></textarea>
-      <br>
-      <div class="txt-block">
-        How many minutes would you need?
-      </div>
-      <input type="number" id="input-checkout-duration" placeholder="5" min="0" max="25"></input>
-      <br>
-      <div id="btn-continue" class="btn">Proceed with caution</div>
+      </h2>
+      <form>
+        <textarea
+          id="txtarea-reason"
+          class="fill-width"
+          rows="5"
+          placeholder="Here's my reason..."></textarea>
+        <br>
+        <p>
+          How many minutes would you need?
+        </p>
+        <input
+          id="input-checkout-duration"
+          type="number"
+          placeholder="3"
+          value="3"
+          min="0"
+          max="25"></input>
+        <br><br>
+        <button id="btn-continue" class="btn-warning">Proceed with caution</button>
+      </form>
     </div>
 
     <script src="../models/events.js"></script>

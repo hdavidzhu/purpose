@@ -1,5 +1,3 @@
-'use strict';
-
 class VisitIntentBank {
 
   constructor() {

@@ -1,5 +1,3 @@
-'use strict';
-
 class Catcher {
   constructor(regExpString, enabledAfter) {
     this.setRegExp(regExpString);
