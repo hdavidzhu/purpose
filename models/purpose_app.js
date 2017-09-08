@@ -39,7 +39,7 @@ class PurposeApp {
           _this.onGetCatcherStrings(sendResponse);
           break;
         case EVENTS.GET_VISIT_INTENT:
-          _this.onGetVisitIntent(tabId);
+          _this.onGetVisitIntent(tabId, sendResponse);
           break;
         case EVENTS.CONTINUE_TO_URL:
           _this.onContinueToUrl(request, tabId);
@@ -71,8 +71,8 @@ class PurposeApp {
     });
   }
 
-  onGetVisitIntent(tabId) {
-    var intent = visitIntentBank.read(tabId);
+  onGetVisitIntent(tabId, sendResponse) {
+    var intent = this.visitIntentBank.read(tabId);
     sendResponse(intent);
   }
 
