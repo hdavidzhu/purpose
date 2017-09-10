@@ -30,7 +30,7 @@ input, textarea {
 }
 
 button {
-  border: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   display: inline-block;
   padding: 15px;
 }
@@ -40,7 +40,14 @@ button:hover {
   opacity: 0.7;
 }
 
-.btn-default {}
+.btn-default {
+  background: white;
+}
+
+/* HACK: There should be a better standard implemented. */
+.btn-default:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 
 .btn-primary {
   background: #81D4FA;

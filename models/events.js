@@ -6,4 +6,5 @@ const EVENTS = {
   GET_VISIT_INTENT: 'get-visit-intent',
   LOADING: 'loading',
   SAVE_CATCHER_STRINGS: 'save-catcher-strings',
+  EXPIRE_SESSION: 'expire-session',
 }

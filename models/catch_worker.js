@@ -15,7 +15,10 @@ class CatchWorker {
     var _this = this;
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
-        _this.tabProcessor.test(tab, _this.pendingCatchersQueue);
+        _this.tabProcessor.process(
+          tab,
+          _this.pendingCatchersQueue,
+          _this.removePendingCatcher.bind(_this));
       });
     });
   }
@@ -23,5 +26,20 @@ class CatchWorker {
   addPendingCatcher(catcher, delay) {
     catcher.setEnabledAfter(Date.now() + delay);
     this.pendingCatchersQueue.push(catcher);
+  }
+
+  removePendingCatcher(chosenCatcher) {
+    const index = this.pendingCatchersQueue.findIndex(function(catcher) {
+      return catcher.regExpString == chosenCatcher.regExpString;
+    });
+    this.pendingCatchersQueue.splice(index, 1);
+  }
+
+  clearPendingCatchers() {
+    // Enable all catchers
+    this.pendingCatchersQueue.map(function(catcher) {
+      catcher.setEnabledAfter(0);
+    });
+    this.pendingCatchersQueue = [];
   }
 }

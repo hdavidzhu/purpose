@@ -1,27 +1,35 @@
 class TabProcessor {
-  constructor(visitIntentBank) {
+
+  constructor(visitIntentBank, catchersProvider) {
     this.visitIntentBank = visitIntentBank;
+    this.catchersProvider = catchersProvider;
   }
 
-  test(tab, catchers) {
-    var _this = this;
-    catchers.find(function(catcher) {
-      if (!catcher.isEnabled())
-        return false;
-
-      const isCaught = catcher.test(tab.url);
-
-      // TODO: This may be a code smell to run code in a `find`
-      if (isCaught) {
-        // TODO: Would we get into a race condition here?
-        _this.block(tab, catcher);
+  process(tab, catchers, handleProcessComplete) {
+    const _this = this;
+    _this.testTab(tab, catchers, function(tab, catcher) {
+      if (catcher) {
+        _this.blockTab(tab, catcher);
+        if (handleProcessComplete) {
+          handleProcessComplete(catcher);
+        }
       }
-
-      return isCaught;
     });
   }
 
-  block(tab, catcher) {
+  /**
+   * @param {Tab} tab
+   * @param {Catcher[]} catchers
+   * @param {Function<Tab, Catcher>} handleTestResult
+  **/
+  testTab(tab, catchers, handleTestResult) {
+    const catcher = catchers.find(function(catcher) {
+      return catcher.isEnabled() && catcher.test(tab.url);
+    });
+    handleTestResult(tab, catcher);
+  }
+
+  blockTab(tab, catcher) {
     const intent = new VisitIntent(tab.url, tab.id, catcher);
     this.visitIntentBank.deposit(intent);
     chrome.tabs.update(tab.id, { url: 'blocker_landing/index.html' });
