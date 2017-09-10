@@ -22,7 +22,7 @@ class Catcher {
   }
 
   /**
-  * @param {millisecond} time Timestamp of when to re-enable feature
+   * @param {millisecond} time Timestamp of when to re-enable feature
   **/
   setEnabledAfter(time) {
     this.enabledAfter = time;

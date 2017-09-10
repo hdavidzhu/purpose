@@ -5,9 +5,9 @@ class PurposeApp {
   constructor() {
     // Declare dependencies
     this.visitIntentBank = new VisitIntentBank();
+    this.catchersProvider = new CatchersProvider();
     this.tabProcessor = new TabProcessor(this.visitIntentBank);
     this.catchWorker = new CatchWorker(this.tabProcessor);
-    this.catchersProvider = new CatchersProvider();
 
     // Start services
     this.initListeners();
@@ -16,11 +16,10 @@ class PurposeApp {
 
   initListeners() {
     const _this = this;
-
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       switch (changeInfo.status) {
         case EVENTS.LOADING:
-          _this.onTabLoading(tab);
+          _this.processTab(tab);
           break;
       }
     });
@@ -30,28 +29,37 @@ class PurposeApp {
     });
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-      const tabId = sender.tab.id;
       switch (request.type) {
         case EVENTS.SAVE_CATCHER_STRINGS:
           _this.onSaveCatcherStrings(request.catcherStrings, sendResponse);
           break;
         case EVENTS.GET_CATCHER_STRINGS:
-          _this.onGetCatcherStrings(sendResponse);
+          _this.onGetCatchersAsStrings(sendResponse);
           break;
         case EVENTS.GET_VISIT_INTENT:
-          _this.onGetVisitIntent(tabId, sendResponse);
+          _this.onGetVisitIntent(sender.tab.id, sendResponse);
           break;
         case EVENTS.CONTINUE_TO_URL:
-          _this.onContinueToUrl(request, tabId);
+          _this.onContinueToUrl(request, sender.tab.id);
+          break;
+        case EVENTS.EXPIRE_SESSION:
+          _this.onExpireSession(sendResponse);
           break;
       }
     });
   }
 
-  onTabLoading(tab) {
+  processTab(tab) {
     const _this = this;
-    this.catchersProvider.getCatchers(function(catchers) {
-      _this.tabProcessor.test(tab, catchers);
+    _this.catchersProvider.getCatchers(function(catchers) {
+      _this.tabProcessor.process(tab, catchers);
+    });
+  }
+
+  processAllTabs() {
+    const _this = this;
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(_this.processTab.bind(_this));
     });
   }
 
@@ -65,8 +73,8 @@ class PurposeApp {
     });
   }
 
-  onGetCatcherStrings(sendResponse) {
-    this.catchersProvider.getCatcherStrings(function(catcherStrings) {
+  onGetCatchersAsStrings(sendResponse) {
+    this.catchersProvider.getCatchersAsStrings(function(catcherStrings) {
       sendResponse(catcherStrings);
     });
   }
@@ -80,5 +88,11 @@ class PurposeApp {
     var intent = this.visitIntentBank.withdraw(tabId);
     this.catchWorker.addPendingCatcher(intent.getCatcher(), request.checkoutDuration);
     chrome.tabs.update(tabId, { url: intent.intendedUrl });
+  }
+
+  onExpireSession(sendResponse) {
+    this.catchWorker.clearPendingCatchers();
+    this.processAllTabs();
+    sendResponse(true);
   }
 }

@@ -4,7 +4,7 @@ class CatchersProvider {
     this.resetCache();
   }
 
-  saveCatcherStrings(catcherStrings, onSyncSetComplete) {
+  saveCatcherStrings(catcherStrings, handleSyncSetCompletion) {
     const _this = this;
 
     chrome.storage.sync.set({
@@ -13,34 +13,32 @@ class CatchersProvider {
       })
     }, function() {
       _this.resetCache();
-      onSyncSetComplete();
+      handleSyncSetCompletion();
     });
   }
 
-  getCatchers(onSyncGetComplete) {
+  getCatchers(handleGetResult) {
     const _this = this;
 
+    // Return cache if it is already present
     if (_this.cachedCatchers != undefined) {
-      return onSyncGetComplete(_this.cachedCatchers);
+      return handleGetResult(_this.cachedCatchers);
     }
 
+    // Otherwise, update cache and return values
     chrome.storage.sync.get('catchers', function(response) {
       _this.setCache(response.catchers);
-      _this.getCatchers(onSyncGetComplete);
+      _this.getCatchers(handleGetResult);
     });
   }
 
-  getCatcherStrings(onGetComplete) {
+  getCatchersAsStrings(handleGetResult) {
     this.getCatchers(function(catchers) {
       const catcherStrings = catchers.map(function(catcher) {
         return catcher.regExpString;
       });
-      onGetComplete(catcherStrings);
+      handleGetResult(catcherStrings);
     });
-  }
-
-  resetCache() {
-    this.cachedCatchers = undefined;
   }
 
   setCache(dehydratedCatchers) {
@@ -50,5 +48,9 @@ class CatchersProvider {
         dehydratedCatcher.enabledAfter
       );
     })
+  }
+
+  resetCache() {
+    this.cachedCatchers = undefined;
   }
 }
