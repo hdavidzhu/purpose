@@ -10,6 +10,7 @@
   },
   "background": {
     "scripts": [
+      "libs/raven.min.js",
       "models/events.js",
       "models/catcher.js",
       "models/catchers_provider.js",
