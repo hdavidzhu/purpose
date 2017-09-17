@@ -11,6 +11,7 @@
   "background": {
     "scripts": [
       "libs/raven.min.js",
+      "base/config_raven.js",
       "models/events.js",
       "models/catcher.js",
       "models/catchers_provider.js",
