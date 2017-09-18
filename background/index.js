@@ -1,1 +1,3 @@
-const purposeApp = new PurposeApp();
+Raven.context(function() {
+  const purposeApp = new PurposeApp();
+});

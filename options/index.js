@@ -1,9 +1,11 @@
 const catchersTextArea = document.getElementById('txtarea-catchers');
 const saveButton = document.getElementById('btn-save');
 
-chrome.runtime.sendMessage({ type: EVENTS.GET_CATCHER_STRINGS }, function(catcherStrings) {
-  catchersTextArea.value = catcherStrings.join('\n');
-});
+chrome.runtime.sendMessage(
+  { type: EVENTS.GET_CATCHER_STRINGS },
+  unlessError(function(catcherStrings) {
+    catchersTextArea.value = catcherStrings.join('\n');
+  }));
 
 saveButton.onclick = function onSaveButtonClick(event) {
   event.preventDefault();

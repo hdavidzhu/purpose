@@ -2,7 +2,9 @@ const expireButton = document.getElementById('btn-expire');
 const optionsButton = document.getElementById('btn-options');
 
 expireButton.onclick = function onExpireButtonClick() {
-  chrome.runtime.sendMessage({ type: EVENTS.EXPIRE_SESSION }, exitPopup);
+  chrome.runtime.sendMessage(
+    { type: EVENTS.EXPIRE_SESSION },
+    unlessError(exitPopup));
 }
 
 optionsButton.onclick = function onOptionsButtonClick() {

@@ -4,40 +4,40 @@ class CatchersProvider {
     this.resetCache();
   }
 
-  saveCatcherStrings(catcherStrings, handleSyncSetCompletion) {
+  saveCatcherStrings(catcherStrings, done) {
     const _this = this;
 
     chrome.storage.sync.set({
       catchers: catcherStrings.map(function(catcherString) {
         return new Catcher(catcherString);
       })
-    }, function() {
+    }, unlessError(function() {
       _this.resetCache();
-      handleSyncSetCompletion();
-    });
+      done();
+    }));
   }
 
-  getCatchers(handleGetResult) {
+  getCatchers(done) {
     const _this = this;
 
     // Return cache if it is already present
     if (_this.cachedCatchers != undefined) {
-      return handleGetResult(_this.cachedCatchers);
+      return done(_this.cachedCatchers);
     }
 
     // Otherwise, update cache and return values
-    chrome.storage.sync.get('catchers', function(response) {
+    chrome.storage.sync.get('catchers', unlessError(function(response) {
       _this.setCache(response.catchers);
-      _this.getCatchers(handleGetResult);
-    });
+      _this.getCatchers(done);
+    }));
   }
 
-  getCatchersAsStrings(handleGetResult) {
+  getCatchersAsStrings(done) {
     this.getCatchers(function(catchers) {
       const catcherStrings = catchers.map(function(catcher) {
         return catcher.regExpString;
       });
-      handleGetResult(catcherStrings);
+      done(catcherStrings);
     });
   }
 

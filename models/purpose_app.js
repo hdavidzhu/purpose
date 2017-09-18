@@ -3,6 +3,7 @@
 class PurposeApp {
 
   constructor() {
+    // throw new Error('goddamit');
     // Declare dependencies
     this.visitIntentBank = new VisitIntentBank();
     this.catchersProvider = new CatchersProvider();
@@ -16,19 +17,19 @@ class PurposeApp {
 
   initListeners() {
     const _this = this;
-    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    chrome.tabs.onUpdated.addListener(unlessError(function(tabId, changeInfo, tab) {
       switch (changeInfo.status) {
         case EVENTS.LOADING:
           _this.processTab(tab);
           break;
       }
-    });
+    }));
 
-    chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+    chrome.tabs.onRemoved.addListener(unlessError(function(tabId, removeInfo) {
       _this.onTabRemoved(tabId);
-    });
+    }));
 
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(unlessError(function(request, sender, sendResponse) {
       switch (request.type) {
         case EVENTS.SAVE_CATCHER_STRINGS:
           _this.onSaveCatcherStrings(request.catcherStrings, sendResponse);
@@ -46,7 +47,7 @@ class PurposeApp {
           _this.onExpireSession(sendResponse);
           break;
       }
-    });
+    }));
   }
 
   processTab(tab) {
@@ -58,9 +59,9 @@ class PurposeApp {
 
   processAllTabs() {
     const _this = this;
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({}, unlessError(function(tabs) {
       tabs.forEach(_this.processTab.bind(_this));
-    });
+    }));
   }
 
   onTabRemoved(tabId) {
