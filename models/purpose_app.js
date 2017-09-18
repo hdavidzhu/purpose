@@ -3,7 +3,6 @@
 class PurposeApp {
 
   constructor() {
-    // throw new Error('goddamit');
     // Declare dependencies
     this.visitIntentBank = new VisitIntentBank();
     this.catchersProvider = new CatchersProvider();
