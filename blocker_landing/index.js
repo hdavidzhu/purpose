@@ -27,10 +27,10 @@ closeButton.onclick = function onCloseButtonClick() {
 
 // LIFECYCLE ===================================================================
 
-chrome.runtime.sendMessage({ type: EVENTS.GET_VISIT_INTENT }, function(intent) {
+chrome.runtime.sendMessage({ type: EVENTS.GET_VISIT_INTENT }, unlessError(function(intent) {
   spanBlocker.textContent = intent.catcher.regExpString;
   spanUrl.textContent = intent.intendedUrl;
-});
+}));
 
 // HELPERS =====================================================================
 

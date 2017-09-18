@@ -13,14 +13,14 @@ class CatchWorker {
 
   check() {
     var _this = this;
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({}, unlessError(function(tabs) {
       tabs.forEach(function(tab) {
         _this.tabProcessor.process(
           tab,
           _this.pendingCatchersQueue,
           _this.removePendingCatcher.bind(_this));
       });
-    });
+    }));
   }
 
   addPendingCatcher(catcher, delay) {
