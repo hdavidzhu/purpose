@@ -41,7 +41,7 @@ class CatchersProvider {
     });
   }
 
-  setCache(dehydratedCatchers) {
+  setCache(dehydratedCatchers = []) {
     this.cachedCatchers = dehydratedCatchers.map(function(dehydratedCatcher) {
       return new Catcher(
         dehydratedCatcher.regExpString,
