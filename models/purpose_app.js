@@ -86,6 +86,9 @@ class PurposeApp {
 
   onContinueToUrl(request, tabId) {
     var intent = this.visitIntentBank.withdraw(tabId);
+    if (!intent) {
+      return;
+    }
     this.catchWorker.addPendingCatcher(intent.getCatcher(), request.checkoutDuration);
     chrome.tabs.update(tabId, { url: intent.intendedUrl });
   }
