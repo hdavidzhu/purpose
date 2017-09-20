@@ -28,6 +28,9 @@ closeButton.onclick = function onCloseButtonClick() {
 // LIFECYCLE ===================================================================
 
 chrome.runtime.sendMessage({ type: EVENTS.GET_VISIT_INTENT }, unlessError(function(intent) {
+  if (!intent) {
+    return;
+  }
   spanBlocker.textContent = intent.catcher.regExpString;
   spanUrl.textContent = intent.intendedUrl;
 }));

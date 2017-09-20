@@ -31,8 +31,11 @@ function unlessError(func, onError) {
       try {
         func.apply(this, arguments);
       } catch (err) {
-        Raven.captureException(err);
-        throw err;        
+        // HACK: For some reason, `Raven.captureException` is removing the first
+        // line of the error stacktrace, causing the error to be useless.
+        // We pass the error as a string.
+        Raven.captureMessage(err.stack);
+        throw err;
       }
     }
   };
