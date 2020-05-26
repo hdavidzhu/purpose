@@ -1,7 +1,6 @@
 const REFRESH_RATE = 60 * 1000; // 1 minute
 
 class CatchWorker {
-
   constructor(tabProcessor) {
     this.pendingCatchersQueue = [];
     this.tabProcessor = tabProcessor;
@@ -13,14 +12,18 @@ class CatchWorker {
 
   check() {
     var _this = this;
-    chrome.tabs.query({}, unlessError(function(tabs) {
-      tabs.forEach(function(tab) {
-        _this.tabProcessor.process(
-          tab,
-          _this.pendingCatchersQueue,
-          _this.removePendingCatcher.bind(_this));
-      });
-    }));
+    browser.tabs.query(
+      {},
+      unlessError(function (tabs) {
+        tabs.forEach(function (tab) {
+          _this.tabProcessor.process(
+            tab,
+            _this.pendingCatchersQueue,
+            _this.removePendingCatcher.bind(_this)
+          );
+        });
+      })
+    );
   }
 
   addPendingCatcher(catcher, delay) {
@@ -29,7 +32,7 @@ class CatchWorker {
   }
 
   removePendingCatcher(chosenCatcher) {
-    const index = this.pendingCatchersQueue.findIndex(function(catcher) {
+    const index = this.pendingCatchersQueue.findIndex(function (catcher) {
       return catcher.regExpString == chosenCatcher.regExpString;
     });
     this.pendingCatchersQueue.splice(index, 1);
@@ -37,7 +40,7 @@ class CatchWorker {
 
   clearPendingCatchers() {
     // Enable all catchers
-    this.pendingCatchersQueue.map(function(catcher) {
+    this.pendingCatchersQueue.map(function (catcher) {
       catcher.setEnabledAfter(0);
     });
     this.pendingCatchersQueue = [];

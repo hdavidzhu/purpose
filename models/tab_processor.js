@@ -1,5 +1,4 @@
 class TabProcessor {
-
   constructor(visitIntentBank, catchersProvider) {
     this.visitIntentBank = visitIntentBank;
     this.catchersProvider = catchersProvider;
@@ -7,7 +6,7 @@ class TabProcessor {
 
   process(tab, catchers, handleProcessComplete) {
     const _this = this;
-    _this.testTab(tab, catchers, function(tab, catcher) {
+    _this.testTab(tab, catchers, function (tab, catcher) {
       if (catcher) {
         _this.blockTab(tab, catcher);
         if (handleProcessComplete) {
@@ -21,9 +20,9 @@ class TabProcessor {
    * @param {Tab} tab
    * @param {Catcher[]} catchers
    * @param {Function<Tab, Catcher>} handleTestResult
-  **/
+   **/
   testTab(tab, catchers, handleTestResult) {
-    const catcher = catchers.find(function(catcher) {
+    const catcher = catchers.find(function (catcher) {
       return catcher.isEnabled() && catcher.test(tab.url);
     });
     handleTestResult(tab, catcher);
@@ -32,6 +31,6 @@ class TabProcessor {
   blockTab(tab, catcher) {
     const intent = new VisitIntent(tab.url, tab.id, catcher);
     this.visitIntentBank.deposit(intent);
-    chrome.tabs.update(tab.id, { url: 'blocker_landing/index.html' });
+    browser.tabs.update(tab.id, { url: "blocker_landing/index.html" });
   }
 }

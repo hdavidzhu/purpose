@@ -1,16 +1,17 @@
-const expireButton = document.getElementById('btn-expire');
-const optionsButton = document.getElementById('btn-options');
+const expireButton = document.getElementById("btn-expire");
+const optionsButton = document.getElementById("btn-options");
 
 expireButton.onclick = function onExpireButtonClick() {
-  chrome.runtime.sendMessage(
+  browser.runtime.sendMessage(
     { type: EVENTS.EXPIRE_SESSION },
-    unlessError(exitPopup));
-}
+    unlessError(exitPopup)
+  );
+};
 
 optionsButton.onclick = function onOptionsButtonClick() {
-  chrome.runtime.openOptionsPage();
+  browser.runtime.openOptionsPage();
   exitPopup();
-}
+};
 
 function exitPopup() {
   window.close();
