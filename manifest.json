@@ -3,7 +3,6 @@
   "name": "Purpose",
   "description": "Better, simpler website blocker to help you use the web with purpose",
   "version": "0.6",
-
   "browser_action": {
     "default_icon": "assets/purpose.png",
     "default_popup": "popup/index.html"
@@ -23,13 +22,18 @@
       "background/index.js"
     ]
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "purpose@hdavidzhu.github.io"
+    }
+  },
   "icons": {
     "700": "assets/purpose.png"
   },
-  "options_page": "options/index.html",
-  "permissions": [
-    "storage",
-    "tabs"
-  ],
+  "options_ui": {
+    "open_in_tab": true,
+    "page": "options/index.html"
+  },
+  "permissions": ["storage", "tabs"],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

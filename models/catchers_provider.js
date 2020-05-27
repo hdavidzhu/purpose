@@ -26,7 +26,7 @@ class CatchersProvider {
     if (_this.cachedCatchers != undefined) {
       return done(_this.cachedCatchers);
     }
-    browser.browser.storage.sync // Otherwise, update cache and return values
+    browser.storage.sync // Otherwise, update cache and return values
       .get(
         "catchers",
         unlessError(function (response) {
